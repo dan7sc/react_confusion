@@ -44,11 +44,6 @@ export const postComment = (dishId, rating, author, comment) => (dispatch) => {
         alert('Your comment could not be posted\nError: ' + error.message); })
 }
 
-export const addFeedback = (feedback) => ({
-    type: ActionTypes.ADD_FEEDBACK,
-    payload: feedback
-});
-
 export const postFeedback = (firstname, lastname, telnum, email, agree, contactType, message) => (dispatch) => {
     const newFeedback = {
         firstname: firstname,
@@ -84,8 +79,8 @@ export const postFeedback = (firstname, lastname, telnum, email, agree, contactT
         throw errmess;
     })
     .then(response => response.json())
-    .then(response => dispatch(addFeedback(response)))
-    .catch(error => {console.log('Post feedbacks ' + error.message)
+    .then(response => { console.log('Feedback', response); alert('Thank you for your feedback!\n' + JSON.stringify(response)); })
+    .catch(error => { console.log('Post feedbacks ' + error.message)
         alert('Your feedback could not be posted\nError: ' + error.message); })
 }
 
