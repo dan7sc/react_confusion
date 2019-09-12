@@ -129,6 +129,7 @@ function RenderComments({comments, postComment, dishId}) {
                                 <Fade in key={comment.id}>
                                     <li>
                                         <p>{comment.comment}</p>
+                                        <p>{comment.rating} stars</p>
                                         <p>-- {comment.author}, {new Intl.DateTimeFormat('en-US', { year: 'numeric', month: 'short', day: '2-digit'}).format(new Date(Date.parse(comment.date)))}</p>
                                     </li>
                                 </Fade>
