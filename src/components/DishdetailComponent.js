@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, CardImg, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Label, Col, Row } from 'reactstrap';
+import { Card, CardImg, CardImgOverlay, CardText, CardBody, CardTitle, Breadcrumb, BreadcrumbItem, Button, Modal, ModalHeader, ModalBody, Label, Col, Row } from 'reactstrap';
 import { Control, LocalForm, Errors } from 'react-redux-form';
 import { Link } from 'react-router-dom';
 import { Loading } from './LoadingComponent';
@@ -98,7 +98,7 @@ class CommentForm extends Component {
     }
 }
 
-function RenderDish({dish}) {
+function RenderDish({dish, favorite, postFavorite}) {
     return (
         <div key={dish.id} className="col-12 col-md-5 m-1">
             <FadeTransform in 
@@ -107,6 +107,15 @@ function RenderDish({dish}) {
                 }}>
                 <Card>
                     <CardImg top src={baseUrl + dish.image} alt={dish.name} />
+                    <CardImgOverlay>
+                        <Button outline color="primary" onClick={() => favorite ? console.log('Already favorite') : postFavorite(dish.id)}>
+                            {favorite ?
+                                <span className="fa fa-heart"></span>
+                                : 
+                                <span className="fa fa-heart-o"></span>
+                            }
+                        </Button>
+                    </CardImgOverlay>
                     <CardBody>
                         <CardTitle>{dish.name}</CardTitle>
                         <CardText>{dish.description}</CardText>
@@ -183,7 +192,7 @@ const DishDetail = (props) => {
                     </div>
                 </div>
                 <div className="row">
-                    <RenderDish dish={props.dish} />
+                    <RenderDish dish={props.dish} favorite={props.favorite}  postFavorite={props.postFavorite} />
                     <RenderComments comments={props.comments}
                         postComment={props.postComment}
                         dishId={props.dish.id} />
